@@ -251,7 +251,7 @@
       <div>
         <h3>Create the Local site</h3>
         <p><a href="https://localwp.com/">Local</a> → Create a new site → PHP 8.1+, latest WordPress. Note the site domain and path — all cloning happens inside <code>&lt;site&gt;/app/public/wp-content/</code>.</p>
-        <div class="note">Use plain <strong>http://</strong> locally — Local's SSL cert is self-signed and only the mobile gyro features need HTTPS.</div>
+        <div class="note">Use plain <strong>http://</strong> locally — Local's SSL cert is self-signed, which can trip up automated browsers and secure-context browser APIs. Don't fight the cert until the project actually uses something that needs HTTPS.</div>
       </div>
     </div>
 
