@@ -185,6 +185,79 @@
 
   .lede strong { color: var(--n-800); font-weight: 500; }
 
+  /* ── Hero — text left, masked CEMENT video right ──────── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  @media (width >= 640px) {
+    .hero { grid-template-columns: 1fr 1fr; gap: 64px; }
+  }
+
+  h1 .dim { color: var(--n-400); }
+
+  .hero-ctas {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-family: var(--cmt-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .btn--solid { background: var(--n-900); color: #fff; }
+  .btn--solid:hover { background: #404040; }
+
+  .btn--ghost {
+    border: 1px solid var(--n-200);
+    color: var(--n-500);
+  }
+
+  .btn--ghost:hover { border-color: var(--n-400); color: var(--n-800); }
+
+  /* CEMENT video mask — one video clipped to the letter shapes,
+     same data-URI mask as the cement theme's app.css */
+  .hero-word-mask {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 297 / 147;
+  }
+
+  .hero-video-mask {
+    position: absolute;
+    inset: 0;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 297 147'%3E%3Cpath d='M 72 0 L 72 72 L 36 72 Q 28.5 72 22 69.2 Q 15.5 66.4 10.55 61.45 Q 5.6 56.5 2.8 50 Q 0 43.5 0 36 Q 0 28.5 2.8 22 Q 5.6 15.5 10.55 10.55 Q 15.5 5.6 22 2.8 Q 28.5 0 36 0 Z'/%3E%3Cpath d='M 147 48 L 147 72 L 75 72 L 75 0 L 147 0 L 147 24 L 141 24 L 141 48 Z'/%3E%3Cpath d='M 222 0 L 222 72 L 150 72 L 150 0 L 173 0 Q 176.6 0 179.55 1.75 Q 182.5 3.5 184.25 6.45 Q 186 9.4 186 13 Q 186 9.4 187.75 6.45 Q 189.5 3.5 192.45 1.75 Q 195.4 0 199 0 Z'/%3E%3Cpath transform='translate(-150 75)' d='M 297 48 L 297 72 L 225 72 L 225 0 L 297 0 L 297 24 L 291 24 L 291 48 Z'/%3E%3Cpath transform='translate(-150 75)' d='M 336 58 L 336 72 L 300 72 L 300 0 L 322 0 Q 325.9 0 329.05 1.9 Q 332.2 3.8 334.1 6.95 Q 336 10.1 336 14 L 336 0 L 372 0 L 372 72 L 350 72 Q 346.2 72 343 70.1 Q 339.8 68.2 337.9 65 Q 336 61.8 336 58 Z'/%3E%3Cpath transform='translate(-150 75)' d='M 441 24 L 441 72 L 381 72 L 381 24 L 375 24 L 375 0 L 447 0 L 447 24 Z'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 297 147'%3E%3Cpath d='M 72 0 L 72 72 L 36 72 Q 28.5 72 22 69.2 Q 15.5 66.4 10.55 61.45 Q 5.6 56.5 2.8 50 Q 0 43.5 0 36 Q 0 28.5 2.8 22 Q 5.6 15.5 10.55 10.55 Q 15.5 5.6 22 2.8 Q 28.5 0 36 0 Z'/%3E%3Cpath d='M 147 48 L 147 72 L 75 72 L 75 0 L 147 0 L 147 24 L 141 24 L 141 48 Z'/%3E%3Cpath d='M 222 0 L 222 72 L 150 72 L 150 0 L 173 0 Q 176.6 0 179.55 1.75 Q 182.5 3.5 184.25 6.45 Q 186 9.4 186 13 Q 186 9.4 187.75 6.45 Q 189.5 3.5 192.45 1.75 Q 195.4 0 199 0 Z'/%3E%3Cpath transform='translate(-150 75)' d='M 297 48 L 297 72 L 225 72 L 225 0 L 297 0 L 297 24 L 291 24 L 291 48 Z'/%3E%3Cpath transform='translate(-150 75)' d='M 336 58 L 336 72 L 300 72 L 300 0 L 322 0 Q 325.9 0 329.05 1.9 Q 332.2 3.8 334.1 6.95 Q 336 10.1 336 14 L 336 0 L 372 0 L 372 72 L 350 72 Q 346.2 72 343 70.1 Q 339.8 68.2 337.9 65 Q 336 61.8 336 58 Z'/%3E%3Cpath transform='translate(-150 75)' d='M 441 24 L 441 72 L 381 72 L 381 24 L 375 24 L 375 0 L 447 0 L 447 24 Z'/%3E%3C/svg%3E");
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+  }
+
+  .hero-video-mask video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-word-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
   /* Pillars */
   .pillars {
     margin-top: 48px;
@@ -393,9 +466,43 @@
 
   <main>
 
-    <span class="kicker">Project setup</span>
-    <h1>Cement</h1>
-    <p class="lede">One system behind every project: a <strong>token core</strong>, a <strong>WordPress shell</strong>, and a <strong>per-project canvas</strong>. This guide takes a new site from zero to running.</p>
+    <div class="hero">
+
+      <div>
+        <span class="kicker">Project setup</span>
+        <h1>Cement<br><span class="dim">from zero to running.</span></h1>
+        <p class="lede">One system behind every project: a <strong>token core</strong>, a <strong>WordPress shell</strong>, and a <strong>per-project canvas</strong>.</p>
+        <div class="hero-ctas">
+          <a href="#choice" class="btn btn--solid">
+            Start setup
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="https://github.com/reddstonebv/cement" class="btn btn--ghost">GitHub</a>
+        </div>
+      </div>
+
+      <!-- CEMENT video mask — one video, SVG mask, hover acrostic -->
+      <div class="hero-word-mask">
+        <div class="hero-video-mask">
+          <video autoplay muted loop playsinline src="bg.mp4"></video>
+        </div>
+        <svg class="hero-word-svg" viewBox="0 0 297 147" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <text class="cement-tip" data-key="C" x="259.5" y="40" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" font-weight="500" fill="#171717" opacity="0" style="pointer-events:none">Capture</text>
+          <text class="cement-tip" data-key="E" x="259.5" y="40" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" font-weight="500" fill="#171717" opacity="0" style="pointer-events:none">Envision</text>
+          <text class="cement-tip" data-key="M" x="259.5" y="40" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" font-weight="500" fill="#171717" opacity="0" style="pointer-events:none">Mould</text>
+          <text class="cement-tip" data-key="E2" x="259.5" y="40" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" font-weight="500" fill="#171717" opacity="0" style="pointer-events:none">Engineer</text>
+          <text class="cement-tip" data-key="N" x="259.5" y="40" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" font-weight="500" fill="#171717" opacity="0" style="pointer-events:none">Narrate</text>
+          <text class="cement-tip" data-key="T" x="259.5" y="40" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" font-weight="500" fill="#171717" opacity="0" style="pointer-events:none">Tend</text>
+          <rect class="cement-zone" data-key="C" x="0" y="0" width="72" height="72" fill="transparent"/>
+          <rect class="cement-zone" data-key="E" x="75" y="0" width="72" height="72" fill="transparent"/>
+          <rect class="cement-zone" data-key="M" x="150" y="0" width="72" height="72" fill="transparent"/>
+          <rect class="cement-zone" data-key="E2" x="75" y="75" width="72" height="72" fill="transparent"/>
+          <rect class="cement-zone" data-key="N" x="150" y="75" width="72" height="72" fill="transparent"/>
+          <rect class="cement-zone" data-key="T" x="222" y="75" width="75" height="72" fill="transparent"/>
+        </svg>
+      </div>
+
+    </div>
 
     <div class="pillars">
       <div class="pillar"><b>cement-wp-plugin</b><span>workflow routes, brand.css CDN, intake</span><em>the core</em></div>
@@ -403,7 +510,7 @@
       <div class="pillar"><b>cement-wp-theme-{project}</b><span>brand templates, tokens, project logic</span><em>the canvas</em></div>
     </div>
 
-    <section class="choice">
+    <section class="choice" id="choice">
       <h2>What are you building?</h2>
       <p class="hint">Everything else follows from this one.</p>
 
@@ -533,6 +640,23 @@ npm install   # in each repo you commit from</code></pre>
   </main>
 
 </div>
+
+<script>
+  // Acrostic tooltips on the CEMENT letter zones — same behaviour
+  // as the cement theme's front page
+  document.querySelectorAll('.cement-zone').forEach(function (zone) {
+    zone.addEventListener('mouseenter', function () {
+      document.querySelectorAll('.cement-tip').forEach(function (t) {
+        t.setAttribute('opacity', t.dataset.key === zone.dataset.key ? '1' : '0');
+      });
+    });
+    zone.addEventListener('mouseleave', function () {
+      document.querySelectorAll('.cement-tip').forEach(function (t) {
+        t.setAttribute('opacity', '0');
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
