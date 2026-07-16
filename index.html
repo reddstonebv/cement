@@ -78,7 +78,7 @@
     }
   }
 
-  /* ── Header — breadcrumb left, mono nav right ─────────── */
+  /* ── Header — CEMENT wordmark left, mono nav right ────── */
   header.site {
     display: flex;
     flex-direction: column;
@@ -95,19 +95,42 @@
     }
   }
 
-  .crumb {
-    display: inline-flex;
+  /* CEMENT logo — hover expands every capital into its word
+     (Capture Envision Mould Engineer Narrate Tend), same as the
+     cement theme's header */
+  .cement-logo {
+    display: flex;
     align-items: center;
-    gap: 8px;
-    font-family: var(--cmt-font-mono);
-    font-size: 14px;
-    letter-spacing: -0.02em;
+    gap: 0;
+    text-decoration: none;
   }
 
-  .crumb a { color: var(--n-400); text-decoration: none; transition: color 0.15s; }
-  .crumb a:hover { color: var(--n-800); }
-  .crumb .sep { color: var(--n-300); }
-  .crumb .here { color: #111; font-weight: 500; }
+  .cement-logo span.letter {
+    display: inline-flex;
+    overflow: hidden;
+    font-family: var(--cmt-font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--n-800);
+  }
+
+  .cement-logo .cap { flex-shrink: 0; }
+
+  .cement-logo .rest {
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: 300;
+    color: var(--n-400);
+    transition: max-width 0.3s ease-out, margin-right 0.3s ease-out;
+  }
+
+  .cement-logo:hover .rest,
+  .cement-logo:focus-visible .rest {
+    max-width: 120px;
+    margin-right: 1px;
+  }
 
   nav.site ul {
     display: flex;
@@ -350,11 +373,14 @@
 <div class="cement-frame">
 
   <header class="site">
-    <div class="crumb">
-      <a href="https://github.com/reddstonebv">reddstonebv</a>
-      <span class="sep">//</span>
-      <span class="here">Cement</span>
-    </div>
+    <a href="https://github.com/reddstonebv/cement" class="cement-logo" aria-label="Cement — home">
+      <span class="letter"><span class="cap">C</span><span class="rest">apture</span></span>
+      <span class="letter"><span class="cap">E</span><span class="rest">nvision</span></span>
+      <span class="letter"><span class="cap">M</span><span class="rest">ould</span></span>
+      <span class="letter"><span class="cap">E</span><span class="rest">ngineer</span></span>
+      <span class="letter"><span class="cap">N</span><span class="rest">arrate</span></span>
+      <span class="letter"><span class="cap">T</span><span class="rest">end</span></span>
+    </a>
     <nav class="site">
       <ul>
         <li><a href="https://github.com/reddstonebv/cement-wp-plugin">Plugin</a></li>
