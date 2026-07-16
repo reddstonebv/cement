@@ -43,4 +43,4 @@ Open the **[setup guide](https://reddstonebv.github.io/cement/)** and follow the
 ## This repo
 
 - `README.md` — this file
-- `index.html` — the setup guide, published via GitHub Pages (Settings → Pages → deploy from `main`, root)
+- `docs/index.html` — the setup guide, published via GitHub Pages (Settings → Pages → deploy from `main`, `/docs`)
