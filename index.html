@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cement — project setup guide</title>
+<meta name="description" content="Reddstone's project system. Start here: WordPress or static, then follow the steps." />
+<style>
+  :root {
+    --cmt-bg:      #0a0a0a;
+    --cmt-surface: #161616;
+    --cmt-border:  #2c2c2c;
+    --cmt-text:    #fafaf8;
+    --cmt-muted:   #9a9a94;
+    --cmt-primary: #1b1bff;
+    --cmt-accent:  #00ff9c;
+    --cmt-radius:  14px;
+    --cmt-font:    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --cmt-mono:    ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--cmt-font);
+    background: var(--cmt-bg);
+    color: var(--cmt-text);
+    line-height: 1.6;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+  }
+
+  /* ── Header ─────────────────────────────────── */
+  header {
+    padding: 96px 0 64px;
+  }
+
+  .kicker {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cmt-accent);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-size: clamp(40px, 8vw, 72px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    margin-bottom: 20px;
+  }
+
+  .lede {
+    font-size: 18px;
+    color: var(--cmt-muted);
+    max-width: 54ch;
+  }
+
+  .lede strong { color: var(--cmt-text); font-weight: 600; }
+
+  /* ── Pillars diagram ────────────────────────── */
+  .pillars {
+    margin: 56px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pillar {
+    border: 1px solid var(--cmt-border);
+    border-radius: var(--cmt-radius);
+    background: var(--cmt-surface);
+    padding: 16px 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .pillar b { font-family: var(--cmt-mono); font-size: 14px; font-weight: 600; white-space: nowrap; }
+  .pillar span { font-size: 13px; color: var(--cmt-muted); }
+  .pillar em { font-style: normal; color: var(--cmt-accent); font-size: 12px; margin-left: auto; white-space: nowrap; padding-left: 12px; }
+
+  /* ── Choice ─────────────────────────────────── */
+  .choice {
+    margin-top: 88px;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+
+  .hint { color: var(--cmt-muted); font-size: 15px; margin-bottom: 28px; }
+
+  input[type='radio'] { position: absolute; opacity: 0; pointer-events: none; }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+
+  .card {
+    display: block;
+    border: 1px solid var(--cmt-border);
+    border-radius: var(--cmt-radius);
+    background: var(--cmt-surface);
+    padding: 24px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .card:hover { border-color: var(--cmt-muted); transform: translateY(-1px); }
+
+  .card h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .card p { font-size: 14px; color: var(--cmt-muted); }
+
+  #pick-wp:checked ~ .cards label[for='pick-wp'],
+  #pick-static:checked ~ .cards label[for='pick-static'] {
+    border-color: var(--cmt-accent);
+    box-shadow: 0 0 0 1px var(--cmt-accent);
+  }
+
+  /* Path sections hidden until a card is picked */
+  .path { display: none; margin-top: 64px; }
+  #pick-wp:checked ~ .path--wp { display: block; }
+  #pick-static:checked ~ .path--static { display: block; }
+
+  /* ── Steps ──────────────────────────────────── */
+  .step {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 20px;
+    padding: 28px 0;
+    border-top: 1px solid var(--cmt-border);
+  }
+
+  .step-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--cmt-accent);
+    color: var(--cmt-bg);
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .step p { font-size: 14.5px; color: var(--cmt-muted); margin-bottom: 12px; max-width: 58ch; }
+  .step p:last-child { margin-bottom: 0; }
+  .step p strong { color: var(--cmt-text); }
+
+  pre {
+    background: #000;
+    border: 1px solid var(--cmt-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-family: var(--cmt-mono);
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #d8d8d2;
+    margin: 12px 0;
+  }
+
+  code { font-family: var(--cmt-mono); font-size: 0.92em; color: var(--cmt-accent); }
+  pre code { color: inherit; }
+
+  a { color: var(--cmt-accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 12px 0; }
+  th, td { text-align: left; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--cmt-border); }
+  th { color: var(--cmt-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  td code { color: var(--cmt-text); }
+
+  .note {
+    border-left: 3px solid var(--cmt-primary);
+    padding: 10px 16px;
+    background: var(--cmt-surface);
+    border-radius: 0 10px 10px 0;
+    font-size: 13.5px;
+    color: var(--cmt-muted);
+    margin: 12px 0;
+  }
+
+  /* ── Footer ─────────────────────────────────── */
+  footer {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--cmt-border);
+    font-size: 13px;
+    color: var(--cmt-muted);
+  }
+
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <span class="kicker">Reddstone</span>
+  <h1>Cement</h1>
+  <p class="lede">One system behind every project: a <strong>token core</strong>, a <strong>WordPress shell</strong>, and a <strong>per-project canvas</strong>. This guide takes a new site from zero to running.</p>
+
+  <div class="pillars">
+    <div class="pillar"><b>cement-wp-plugin</b><span>workflow routes, brand.css CDN, intake</span><em>the core</em></div>
+    <div class="pillar"><b>cement-wp-theme</b><span>WP plumbing, token foundation, admin</span><em>the shell</em></div>
+    <div class="pillar"><b>cement-wp-theme-{project}</b><span>brand templates, tokens, project logic</span><em>the canvas</em></div>
+  </div>
+</header>
+
+<section class="choice">
+  <h2>What are you building?</h2>
+  <p class="hint">Everything else follows from this one.</p>
+
+  <input type="radio" name="kind" id="pick-wp" />
+  <input type="radio" name="kind" id="pick-static" />
+
+  <div class="cards">
+    <label class="card" for="pick-wp">
+      <h3>WordPress site</h3>
+      <p>Client site with pages, editing, the full Cement stack. Plugin + parent theme + your project child theme.</p>
+    </label>
+    <label class="card" for="pick-static">
+      <h3>Static site</h3>
+      <p>No WordPress. A standalone build that consumes Cement's design tokens from the CDN and shares the tooling.</p>
+    </label>
+  </div>
+
+  <!-- ── WordPress path ─────────────────────── -->
+  <div class="path path--wp">
+
+    <div class="step">
+      <div><span class="step-num">1</span></div>
+      <div>
+        <h3>Create the Local site</h3>
+        <p><a href="https://localwp.com/">Local</a> → Create a new site → PHP 8.1+, latest WordPress. Note the site domain and path — all cloning happens inside <code>&lt;site&gt;/app/public/wp-content/</code>.</p>
+        <div class="note">Use plain <strong>http://</strong> locally — Local's SSL cert is self-signed and only the mobile gyro features need HTTPS.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div><span class="step-num">2</span></div>
+      <div>
+        <h3>Clone the core + shell</h3>
+<pre><code>cd wp-content/plugins
+git clone git@github.com:reddstonebv/cement-wp-plugin.git wp-cement-plugin
+
+cd ../themes
+git clone git@github.com:reddstonebv/cement-wp-theme.git wp-cement-theme</code></pre>
+        <p>Folder names matter — child themes declare <code>Template: wp-cement-theme</code>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div><span class="step-num">3</span></div>
+      <div>
+        <h3>Fork the child starter</h3>
+        <p>Clone with shared history so starter updates can be merged in later:</p>
+<pre><code>cd wp-content/themes
+git clone git@github.com:reddstonebv/cement-wp-theme-child.git wp-cement-theme-&lt;project&gt;
+cd wp-cement-theme-&lt;project&gt;
+git remote rename origin upstream
+git remote add origin git@github.com:reddstonebv/cement-wp-theme-&lt;project&gt;.git
+git push -u origin main</code></pre>
+        <p>Then work through the <a href="https://github.com/reddstonebv/cement-wp-theme-child#using-as-a-base-for-a-new-client">rename checklist</a>: theme name, text domain, handle prefixes, token prefix. Existing project? Clone it instead — e.g. <a href="https://github.com/reddstonebv/cement-wp-theme-rsr">cement-wp-theme-rsr</a>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div><span class="step-num">4</span></div>
+      <div>
+        <h3>Activate &amp; configure</h3>
+        <p><strong>Plugins</strong> → activate Cement. <strong>Appearance → Themes</strong> → activate your child theme. <strong>Settings → Permalinks</strong> → Post name (required for the <code>/cement/*</code> routes).</p>
+        <p>Create the pages your templates expect (slugs matter — templates resolve content by slug), set the static front page, assign the primary menu. Per-project details live in the project README — see <a href="https://github.com/reddstonebv/cement-wp-theme-rsr#readme">RSR's</a> for a worked example with a full page table.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div><span class="step-num">5</span></div>
+      <div>
+        <h3>Tooling (for committing)</h3>
+<pre><code>git clone git@github.com:reddstonebv/cement-tooling.git ~/Local\ Sites/cement-tooling
+ln -s ~/Local\ Sites/cement-tooling /tmp/cement-tooling
+npm install   # in each repo you commit from</code></pre>
+        <p>Pre-commit hooks run prettier + <code>phpcs --standard=PSR12</code>. macOS clears <code>/tmp</code> on reboot — recreate the symlink when commits fail with "config not found".</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Static path ────────────────────────── -->
+  <div class="path path--static">
+
+    <div class="step">
+      <div><span class="step-num">1</span></div>
+      <div>
+        <h3>Consume the tokens</h3>
+        <p>The Cement plugin serves the shared token set at <code>/cement/css/brand.css</code>. Load it before your own styles:</p>
+<pre><code>&lt;link rel="stylesheet" href="https://&lt;cement-host&gt;/cement/css/brand.css" /&gt;
+&lt;link rel="stylesheet" href="css/site.css" /&gt;</code></pre>
+        <p>All tokens are <code>--cmt-*</code> custom properties. Override only what differs, under your own project prefix. Consuming sites show up automatically in the plugin's Connected Sites view.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div><span class="step-num">2</span></div>
+      <div>
+        <h3>Share the tooling</h3>
+<pre><code>npm install --save-dev github:reddstonebv/cement-tooling</code></pre>
+        <p>Extend the shared stylelint/eslint/prettier configs — see the <a href="https://github.com/reddstonebv/cement-tooling#readme">cement-tooling README</a> for the per-project stylelint token-prefix rule.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div><span class="step-num">3</span></div>
+      <div>
+        <h3>Repo &amp; deploy</h3>
+        <p>Name it <code>cement-static-&lt;project&gt;</code> under <a href="https://github.com/reddstonebv">reddstonebv</a>. GitHub Pages, Netlify, or the client's host — the token CDN link is the only runtime dependency on Cement.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <a href="https://github.com/reddstonebv/cement-wp-plugin">plugin</a>
+    <a href="https://github.com/reddstonebv/cement-wp-theme">parent theme</a>
+    <a href="https://github.com/reddstonebv/cement-wp-theme-child">child starter</a>
+    <a href="https://github.com/reddstonebv/cement-wp-theme-rsr">rsr example</a>
+    <a href="https://github.com/reddstonebv/cement-tooling">tooling</a>
+  </nav>
+  <p>Cement — Reddstone's project system.</p>
+</footer>
+
+</div>
+</body>
+</html>
